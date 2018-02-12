@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const FormSchema = mongoose.Schema({
+
+  username: {type: String},
   email: {
     type: String
     //required: true

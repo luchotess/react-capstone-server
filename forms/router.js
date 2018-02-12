@@ -7,6 +7,14 @@ const {Form} = require('./models');
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
+const {User} = require('../users/models'); // is this right?
+const passport = require('passport');
+const { router: authRouter, localStrategy, jwtStrategy } = require('../auth');
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+
 
 // Post to register a new form
 router.post('/', jsonParser, (req, res) => {
@@ -97,7 +105,7 @@ router.post('/', jsonParser, (req, res) => {
     });
   } */
 //dont need to initialize values that will always be submitted
-  let {email, age = '', martial = '', hand = '', interpreter = '',
+  let {username, email, age = '', martial = '', hand = '', interpreter = '',
       medicalIssue, presentIllness = '', tobacco = '', nonmedicalDrugs = '',
       alcohol = '', VD = '', workedLast = '', pastHistory = '', familyHistoryDiabetes = '',
       familyHistoryTb = '', familyHistoryHeartDisease = '', familyHistoryCancer = '',
@@ -110,6 +118,7 @@ router.post('/', jsonParser, (req, res) => {
   //email?
   return Form.
   create({
+            username: req.body.username,
             email: req.body.email,
             age: req.body.age,
             martial: req.body.martial,
@@ -155,7 +164,8 @@ router.post('/', jsonParser, (req, res) => {
       });
     }) */
     .then(form => {
-      return res.status(201).json(form.serialize());
+      console.log('form', form);
+      return res.status(201).json(form);
     })
     .catch(err => {
       // Forward validation errors on to the client, otherwise give a 500
@@ -163,7 +173,7 @@ router.post('/', jsonParser, (req, res) => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
-      res.status(500).json({code: 500, message: 'Internal server error'});
+      res.status(500).json({code: 500, message: 'test'});
     });
 });
 
@@ -171,10 +181,27 @@ router.post('/', jsonParser, (req, res) => {
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also
 // verify this in the Mongo shell.
-router.get('/', (req, res) => {
+/*router.get('/', (req, res) => {
   return Form.find()
     .then(forms => res.json(forms.map(user => form.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
+*/
 
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+//i re-used this endpoint for forms
+// A protected endpoint which needs a valid JWT to access it
+router.get('/', jwtAuth, (req, res) => {
+ Form.find()
+  .then(forms => { console.log(forms)
+    res.json(forms);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: 'something went wrong'
+    });    
+  }) 
+});
 module.exports = {router};

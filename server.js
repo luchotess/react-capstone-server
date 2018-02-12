@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json()
 
 // Here we use destructuring assignment with renaming so the two variables
 // called router (from ./users and ./auth) have different names
@@ -45,16 +47,25 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
+//i re-used this endpoint for forms
 // A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
-});
-
-app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
-});
+/*app.get('/api/forms', (req, res) => {
+console.log('entering enter');
+res.json('something');
+ /* Forms.find()
+  .then(forms => { console.log(forms)
+    res.json(forms);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: 'something went wrong'
+    });    
+  }) */
+//});
+//app.use('*', (req, res) => {
+  //return res.status(404).json({ message: 'Not Found' });
+//}); 
 
 // Referenced by both runServer and closeServer. closeServer
 // assumes runServer has run and set `server` to a server object

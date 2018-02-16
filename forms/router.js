@@ -164,7 +164,7 @@ router.post('/', jsonParser, (req, res) => {
       });
     }) */
     .then(form => {
-      console.log('form', form);
+      //console.log('form', form);
       return res.status(201).json(form);
     })
     .catch(err => {

@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+//add admin type to scheme
+
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
@@ -19,7 +21,11 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   firstName: {type: String, default: ''},
-  lastName: {type: String, default: ''}
+  lastName: {type: String, default: ''},
+
+  admin: {
+    type: Boolean
+  }
 });
 
 UserSchema.methods.serialize = function() {
@@ -27,7 +33,8 @@ UserSchema.methods.serialize = function() {
     username: this.username || '',
     email: this.email || '',
     firstName: this.firstName || '',
-    lastName: this.lastName || ''
+    lastName: this.lastName || '',
+    admin: this.admin ||false,
   };
 };
 

@@ -15,8 +15,8 @@ const FormSchema = mongoose.Schema({
   age: {
     type: String
   },
-  marital: {type: String},
-  hand: {type: String},
+  marital: {type: String, default: ''},
+  hand: {type: String, default: ''},
   interpreter: {type: String, default: ''},
   medicalIssue: {type: String, default: ''},
   presentIllness: {type: String, default: ''},

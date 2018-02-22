@@ -1,4 +1,5 @@
 'use strict';
+const {User} = require('./users')
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -20,7 +21,25 @@ const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 mongoose.Promise = global.Promise;
 
+
+
 const { PORT, DATABASE_URL } = require('./config');
+
+//creating admin account
+/*
+User.hashPassword('admin').then((hash)=>{
+  User.create({
+    username: 'admin',
+    email: 'admin@admin.com',
+    password: hash,
+    firstName: 'admin',
+    lastName: 'admin',
+    admin: true
+  }).then(res =>console.log(res));
+});
+
+*/
+
 
 const app = express();
 

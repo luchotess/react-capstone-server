@@ -14,9 +14,21 @@ const { router: authRouter, localStrategy, jwtStrategy } = require('../auth');
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-
+//create endpoint that checks if a form exists
 //multiple endpoints vs one, I will do one
 // Post to register a new form 
+router.get('/check/:username', jsonParser, (req,res)=> {
+  Form.findOne({username:req.params.username}).then((form)=>{
+    if (form){
+      res.status(200).json(form);
+    }
+    else{
+      res.status(404).json(false);
+    }
+    //res.json(form);
+  })
+});
+
 router.post('/', jsonParser, (req, res) => {
   const requiredFields = [' medicalIssue', ' Medications'];
   const missingField = requiredFields.find(field => !(field in req.body));
@@ -72,7 +84,7 @@ router.post('/', jsonParser, (req, res) => {
     });
 });
 //put to update form
-router.put('/', jsonParser, (req, res) => {
+router.put('/:formid', jsonParser, (req, res) => {
   const requiredFields = [' medicalIssue', ' Medications'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -86,7 +98,7 @@ router.put('/', jsonParser, (req, res) => {
 
   } = req.body;
  
-  
+  console.log(req.params.formid);
   return Form.
   update({
             username: req.body.username,

@@ -23,7 +23,7 @@ router.get('/check/:username', jsonParser, (req,res)=> {
       res.status(200).json(form);
     }
     else{
-      res.status(404).json(false);
+      res.status(200).json({});
     }
     //res.json(form);
   })

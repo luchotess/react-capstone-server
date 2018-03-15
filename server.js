@@ -21,6 +21,14 @@ const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 mongoose.Promise = global.Promise;
 
+/*
+const cors = require('cors');
+const {CLIENT_ORIGIN} = require('./config');
+
+app.use(
+    cors()
+);
+*/
 
 
 const { PORT, DATABASE_URL } = require('./config');

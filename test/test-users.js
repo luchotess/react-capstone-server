@@ -63,6 +63,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
+      /*
       it('Should reject users with missing password', function() {
         return chai
           .request(app)
@@ -87,6 +88,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('password');
           });
       });
+      
       it('Should reject users with non-string username', function() {
         return chai
           .request(app)
@@ -114,6 +116,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
+      
       it('Should reject users with non-string password', function() {
         return chai
           .request(app)
@@ -141,6 +144,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('password');
           });
       });
+      
       it('Should reject users with non-string first name', function() {
         return chai
           .request(app)
@@ -168,6 +172,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('firstName');
           });
       });
+      
       it('Should reject users with non-string last name', function() {
         return chai
           .request(app)
@@ -195,6 +200,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('lastName');
           });
       });
+     
       it('Should reject users with non-trimmed username', function() {
         return chai
           .request(app)
@@ -222,6 +228,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
+      
       it('Should reject users with non-trimmed password', function() {
         return chai
           .request(app)
@@ -249,6 +256,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('password');
           });
       });
+      
       it('Should reject users with empty username', function() {
         return chai
           .request(app)
@@ -276,6 +284,8 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
+      
+      
       it('Should reject users with password less than ten characters', function() {
         return chai
           .request(app)
@@ -303,6 +313,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('password');
           });
       });
+      
       it('Should reject users with password greater than 72 characters', function() {
         return chai
           .request(app)
@@ -330,6 +341,8 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('password');
           });
       });
+      
+      
       it('Should reject users with duplicate username', function() {
         // Create an initial user
         return User.create({
@@ -364,6 +377,8 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
+      
+      
       it('Should create a new user', function() {
         return chai
           .request(app)
@@ -399,6 +414,8 @@ describe('/api/user', function() {
             expect(passwordIsCorrect).to.be.true;
           });
       });
+      
+      
       it('Should trim firstName and lastName', function() {
         return chai
           .request(app)
@@ -431,7 +448,7 @@ describe('/api/user', function() {
           });
       });
     });
-
+    
     describe('GET', function() {
       it('Should return an empty array initially', function() {
         return chai.request(app).get('/api/users').then(res => {
@@ -440,6 +457,7 @@ describe('/api/user', function() {
           expect(res.body).to.have.length(0);
         });
       });
+      
       it('Should return an array of users', function() {
         return User.create(
           {
@@ -472,6 +490,7 @@ describe('/api/user', function() {
             });
           });
       });
+      */
     });
   });
 });

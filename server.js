@@ -34,7 +34,7 @@ app.use(
 const { PORT, DATABASE_URL } = require('./config');
 
 //creating admin account
-/*
+
 User.hashPassword('admin').then((hash)=>{
   User.create({
     username: 'admin',
@@ -46,7 +46,7 @@ User.hashPassword('admin').then((hash)=>{
   }).then(res =>console.log(res));
 });
 
-*/
+
 
 
 const app = express();
